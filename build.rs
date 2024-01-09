@@ -15,18 +15,18 @@ fn link_cuda() {
 
     let candidates: Vec<PathBuf> = root_candidates().collect();
 
-    let toolkit_root = root_candidates()
-        .find(|path| path.join("include").join("cuda.h").is_file())
-        .unwrap_or_else(|| {
-            panic!(
-                "Unable to find `include/cuda.h` under any of: {:?}. Set the `CUDA_ROOT` environment variable to `$CUDA_ROOT/include/cuda.h` to override path.",
-                candidates
-            )
-        });
+    // let toolkit_root = root_candidates()
+    //     .find(|path| path.join("include").join("cuda.h").is_file())
+    //     .unwrap_or_else(|| {
+    //         panic!(
+    //             "Unable to find `include/cuda.h` under any of: {:?}. Set the `CUDA_ROOT` environment variable to `$CUDA_ROOT/include/cuda.h` to override path.",
+    //             candidates
+    //         )
+    //     });
 
-    for path in lib_candidates(&toolkit_root) {
-        println!("cargo:rustc-link-search=native={}", path.display());
-    }
+    // for path in lib_candidates(&toolkit_root) {
+    //     println!("cargo:rustc-link-search=native={}", path.display());
+    // }
 
     #[cfg(feature = "nccl")]
     println!("cargo:rustc-link-lib=dylib=nccl");
